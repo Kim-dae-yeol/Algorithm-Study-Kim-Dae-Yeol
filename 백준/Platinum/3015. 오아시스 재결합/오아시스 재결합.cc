@@ -1,29 +1,47 @@
-#include <bits/stdc++.h>
+#include<iostream>
+#include<stack>
+
 using namespace std;
-stack<pair<int,int>> stk;
-
-int main(void){
-    long long N, ans = 0;
-    cin >> N;
-
-    for(int i=0; i<N; i++){
-        int h, cnt = 1;
+stack<pair<int, int>> stk;
+int n;
+int pop(){
+    int ret = stk.top().second;
+    stk.pop();
+    return ret;
+}
+void oasis() {
+    long long result = 0;
+    
+    for(int i = 0; i < n; i++){
+        int h;
         cin >> h;
-        while( !stk.empty() && stk.top().first <= h ){
-            if( stk.top().first == h ){
-                ans += stk.top().second;
-                cnt = stk.top().second + 1;
-                stk.pop();
-            }else{
-                ans += stk.top().second;
+        int cnt = 1;
+        while(stk.empty() == false && stk.top().first <= h) {
+            if(!stk.empty() && stk.top().first == h){
+                int val = pop();
+                result += val;
+                // cout << "result +=" << val << endl;
+                cnt = val + 1;
+            }else {
                 cnt = 1;
-                stk.pop();
+                int val = pop();
+                result += val;
+                // cout << "result +=" << val << endl;
             }
         }
-        if( !stk.empty() ) ans += 1;
-
+        
+        if(!stk.empty()) {
+            result ++;
+            // cout << people[i] << "::" << "resut ++ " << endl;
+        }
+        
         stk.push({h, cnt});
     }
-    cout << ans ;
-    return 0;
+    
+    cout << result;
+}
+
+int main(){
+    cin >> n;
+    oasis();
 }
