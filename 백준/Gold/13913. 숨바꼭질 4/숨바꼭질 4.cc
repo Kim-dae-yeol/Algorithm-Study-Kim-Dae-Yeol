@@ -8,7 +8,7 @@
 int n, k;
 int dist[200001];
 int result[200001];
-
+int printer[200001];
 using namespace std;
 
 int main()
@@ -33,15 +33,17 @@ int main()
         }
     }
     cout << dist[k] << "\n";
-    vector<int> ret;
-    ret.push_back(k);
+    printer[0] = n;
+    printer[dist[k]] = k;
     int cur = result[k];
+    
     while(cur != -1){
-        ret.insert(ret.begin(), cur);
+        printer[dist[cur]] = cur;
         cur = result[cur];
     }
-    for(int e : ret){
-        cout << e << " ";
+    
+    for(int i = 0; i <= dist[k]; i++){
+        cout << printer[i] << " ";
     }
     return 0;
 }
