@@ -10,14 +10,24 @@ int r = 31;
 int string_hash(int n, string s){
     int sum = 0;
     for(int i = 0; i < n; i++){
-        int mult = 1;
+        long long mult = 1;
         for(int j = 0 ; j < i; j++){
-            mult *= r % M;
+            mult *= r;
+            mult %= M;
         }
-        sum += ((s[i] - 'a' + 1) * ( mult % M ));
+        
+        int a = (s[i] - 'a' + 1 );
+        int b = mult;
+        long long added = (long long)a * b;
+        added %= M;
+        long long result = (sum + added) % M;
+        sum = result;
     }
     return sum;
 }
+
+//50 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+//1016023867
 
 int main()
 {
